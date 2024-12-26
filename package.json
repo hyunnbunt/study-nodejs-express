@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyunnbunt/study-nodejs-express.git"
+  },
+  "author": "hyuna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyunnbunt/study-nodejs-express/issues"
+  },
+  "homepage": "https://github.com/hyunnbunt/study-nodejs-express#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
