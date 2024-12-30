@@ -1,13 +1,51 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const mongoose = require('mongoose')
+
+
+if (process.argv.length<3) {
+    console.log('give password as argument');
+    process.exit(1);
+}
+
+const newName = process.argv[3];
+const newNumber = process.argv[4];
+
+const url = process.env.MONGODB_URI;
+mongoose.set('strictQuery', false);
+mongoose.connect(url)
+const personSchema = new mongoose.Schema({
+    name: String,
+    number: String,
+})
+
+const Person = mongoose.model('Person', personSchema)
+
+if (newName && newNumber) {
+    const person = new Person({
+        name: newName,
+        number: newNumber
+    });
+    person.save().then(result => {
+        console.log(`result ${result}`)
+        console.log(`added ${newName} number ${newNumber} to phonebook`)
+        mongoose.connection.close()
+    })
+} else {
+    Person.find({})
+    .then(result => {
+        console.log('전화번호부:')
+        result.forEach(person => {
+            console.log(`${person.name} ${person.number}`)
+        })
+        mongoose.connection.close()
+    })
+}
+
 const app = express()
 app.use(express.json())
 app.use(express.static('dist'))
-// var corsOptions = {
-//   origin: 'http://localhost:5173',
-//   optionsSuccessStatus: 200 
-// }
 app.use(cors())
 morgan.token('postData', (req) => {
     if (req.method==='POST') {
@@ -64,7 +102,9 @@ app.post('/api/persons', (request, response) => {
   }
 })
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
   
 })
 app.get('/info', (request, response) => {

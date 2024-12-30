@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "echo \"error: no test specified\" && exit 1"
+    "test": "echo \"error: no test specified\" && exit 1",
+    "build:ui": "rm -rf dist && cd ../clipst-react-app/ && npm run build && cp -r dist ../study-nodejs-express",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,9 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.9.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
