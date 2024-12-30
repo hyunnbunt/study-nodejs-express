@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 app.use(express.json())
+app.use(express.static('dist'))
 // var corsOptions = {
 //   origin: 'http://localhost:5173',
 //   optionsSuccessStatus: 200 
